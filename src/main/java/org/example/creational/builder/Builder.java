@@ -58,6 +58,12 @@ class HtmlBuilder {
     root.elements.add(e);
   }
 
+  public HtmlBuilder addChildFluent(String childName, String childText) {
+    HtmlElement e = new HtmlElement(childName, childText);
+    root.elements.add(e);
+    return this;
+  }
+
   public void clear() {
     root = new HtmlElement();
     root.name = rootName;
@@ -94,6 +100,12 @@ class BuilderDemo {
     HtmlBuilder builder = new HtmlBuilder("ul");
     builder.addChild("li", "hello");
     builder.addChild("li", "world");
+    System.out.println(builder);
+
+    // fluent builder
+    builder.clear();
+    builder.addChildFluent("li", "hello")
+        .addChildFluent("li", "world");
     System.out.println(builder);
   }
 }
