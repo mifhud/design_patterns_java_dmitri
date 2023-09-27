@@ -43,6 +43,20 @@ class Point {
   public static Point newPolarPoint(double rho, double theta) {
     return new Point(rho * Math.cos(theta), rho * Math.sin(theta));
   }
+
+  public static class Factory {
+
+    public static Point newCartesianPoint(double x, double y) {
+      return new Point(x, y);
+    }
+  }
+}
+
+class PointFactory {
+
+  public static Point newCartesianPoint(double x, double y) {
+    return new Point(x, y);
+  }
 }
 
 class FactoryDemo {
@@ -52,5 +66,7 @@ class FactoryDemo {
     Point origin = Point.ORIGIN;
 
     Point pointFactoryMethod = Point.newPolarPoint(2, 3);
+
+    Point point1 = Point.Factory.newCartesianPoint(1, 2);
   }
 }
