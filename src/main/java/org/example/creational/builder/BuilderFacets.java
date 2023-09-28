@@ -1,6 +1,6 @@
 package org.example.creational.builder;
 
-class Person {
+class PersonFacet {
 
   // address
   public String streetAddress, postcode, city;
@@ -11,7 +11,7 @@ class Person {
 
   @Override
   public String toString() {
-    return "Person{" +
+    return "PersonFacet{" +
         "streetAddress='" + streetAddress + '\'' +
         ", postcode='" + postcode + '\'' +
         ", city='" + city + '\'' +
@@ -23,63 +23,63 @@ class Person {
 }
 
 // builder facade
-class PersonBuilder {
+class PersonFacetBuilder {
 
   // the object we're going to build
-  protected Person person = new Person(); // reference!
+  protected PersonFacet person = new PersonFacet(); // reference!
 
-  public PersonJobBuilder works() {
-    return new PersonJobBuilder(person);
+  public PersonFacetJobBuilder works() {
+    return new PersonFacetJobBuilder(person);
   }
 
-  public PersonAddressBuilder lives() {
-    return new PersonAddressBuilder(person);
+  public PersonFacetAddressBuilder lives() {
+    return new PersonFacetAddressBuilder(person);
   }
 
-  public Person build() {
+  public PersonFacet build() {
     return person;
   }
 }
 
-class PersonAddressBuilder extends PersonBuilder {
+class PersonFacetAddressBuilder extends PersonFacetBuilder {
 
-  public PersonAddressBuilder(Person person) {
+  public PersonFacetAddressBuilder(PersonFacet person) {
     this.person = person;
   }
 
-  public PersonAddressBuilder at(String streetAddress) {
+  public PersonFacetAddressBuilder at(String streetAddress) {
     person.streetAddress = streetAddress;
     return this;
   }
 
-  public PersonAddressBuilder withPostcode(String postcode) {
+  public PersonFacetAddressBuilder withPostcode(String postcode) {
     person.postcode = postcode;
     return this;
   }
 
-  public PersonAddressBuilder in(String city) {
+  public PersonFacetAddressBuilder in(String city) {
     person.city = city;
     return this;
   }
 }
 
-class PersonJobBuilder extends PersonBuilder {
+class PersonFacetJobBuilder extends PersonFacetBuilder {
 
-  public PersonJobBuilder(Person person) {
+  public PersonFacetJobBuilder(PersonFacet person) {
     this.person = person;
   }
 
-  public PersonJobBuilder at(String companyName) {
+  public PersonFacetJobBuilder at(String companyName) {
     person.companyName = companyName;
     return this;
   }
 
-  public PersonJobBuilder asA(String position) {
+  public PersonFacetJobBuilder asA(String position) {
     person.position = position;
     return this;
   }
 
-  public PersonJobBuilder earning(int annualIncome) {
+  public PersonFacetJobBuilder earning(int annualIncome) {
     person.annualIncome = annualIncome;
     return this;
   }
@@ -88,8 +88,8 @@ class PersonJobBuilder extends PersonBuilder {
 class BuilderFacetsDemo {
 
   public static void main(String[] args) {
-    PersonBuilder pb = new PersonBuilder();
-    Person person = pb
+    PersonFacetBuilder pb = new PersonFacetBuilder();
+    PersonFacet person = pb
         .lives()
         .at("123 London Road")
         .in("London")
