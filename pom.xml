@@ -66,6 +66,11 @@
       <groupId>org.javatuples</groupId>
       <version>1.2</version>
     </dependency>
+    <dependency>
+      <artifactId>reflections</artifactId>
+      <groupId>org.reflections</groupId>
+      <version>0.10.2</version>
+    </dependency>
   </dependencies>
   <groupId>org.example</groupId>
 
