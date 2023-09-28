@@ -71,6 +71,11 @@
       <groupId>org.reflections</groupId>
       <version>0.10.2</version>
     </dependency>
+    <dependency>
+      <artifactId>commons-lang3</artifactId>
+      <groupId>org.apache.commons</groupId>
+      <version>3.12.0</version>
+    </dependency>
   </dependencies>
   <groupId>org.example</groupId>
 
