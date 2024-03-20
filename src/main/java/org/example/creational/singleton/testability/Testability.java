@@ -15,6 +15,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+interface Database {
+
+    int getPopulation(String name);
+}
+
 class SingletonDatabase {
 
     private Dictionary<String, Integer> capitals = new Hashtable<>();
@@ -64,6 +69,50 @@ class SingletonRecordFinder {
     }
 }
 
+class ConfigurableRecordFinder {
+
+    private Database database;
+
+    public ConfigurableRecordFinder(Database database) {
+        this.database = database;
+    }
+
+    public int getTotalPopulation(List<String> names) {
+        int result = 0;
+        for (String name : names) {
+            result += database.getPopulation(name);
+        }
+        return result;
+    }
+}
+
+class SingletonTestabilityDemo {
+
+    public static void main(String[] args) {
+        SingletonDatabase db = SingletonDatabase.getInstance();
+
+        String city = "Tokyo";
+        int pop = db.getPopulation(city);
+        System.out.println(String.format("%s has population %d", city, pop));
+    }
+}
+
+class DummyDatabase implements Database {
+
+    private Dictionary<String, Integer> data = new Hashtable<>();
+
+    public DummyDatabase() {
+        data.put("alpha", 1);
+        data.put("beta", 2);
+        data.put("gamma", 3);
+    }
+
+    @Override
+    public int getPopulation(String name) {
+        return data.get(name);
+    }
+}
+
 @RunWith(JUnit4.class)
 public class Testability {
 
@@ -82,5 +131,12 @@ public class Testability {
         List<String> names = List.of("Seoul", "Mexico City");
         int tp = rf.getTotalPopulation(names);
         assertEquals(17500000 + 17400000, tp);
+    }
+
+    @Test
+    public void dependentPopulationTest() {
+        DummyDatabase db = new DummyDatabase();
+        ConfigurableRecordFinder rf = new ConfigurableRecordFinder(db);
+        assertEquals(4, rf.getTotalPopulation(List.of("alpha", "gamma")));
     }
 }
